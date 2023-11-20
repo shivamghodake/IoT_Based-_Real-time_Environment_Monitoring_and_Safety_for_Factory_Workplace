@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Enter Password</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background-image: url('bg5.jpg');
+      background-size: cover;
+      background-position: center;
+      font-size: 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      color: yellow;
+      font-family: Georgia, 'Times New Roman', Times, serif;
+    }
+
+    h1 {
+      position: absolute;
+      top: 0;
+	  left: 5;
+	  right: 5;
+      text-align: center;
+	  font-size: 50px;
+	  font-weight: bold;
+    }
+
+    .bottom-content {
+      position: absolute;
+      bottom: 50px;
+      text-align: center;
+      color: black; 
+	  font-weight: bold;
+	  
+    }
+
+    .form-group {
+      margin-bottom: 15px;
+    }
+
+    
+    label {
+      color: black;
+    }
+  </style>
+</head>
+<body>
+  <h1>IoT Based Real-time Environment Monitoring and Safety For Factory Workplace</h1>
+
+  <div class="bottom-content">
+    <form onsubmit="checkPassword(); return false;">
+      <p>Please enter the correct password to access the content:</p>
+      <div class="form-group">
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" class="form-control">
+      </div>
+      <div class="form-group">
+        <input type="submit" value="Submit" class="btn btn-primary">
+      </div>
+    </form>
+  </div>
+
+  <script>
+    function checkPassword() {
+      var password = document.getElementById("password").value;
+      if (password === "Shivam@23") {
+        window.location.href = "Main1.html";
+      } else {
+        alert("Incorrect password. Please try again.");
+      }
+    }
+  </script>
+</body>
+</html>
+
+

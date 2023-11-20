@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>IoT Based Real-time Environment Monitoring and Safety For Factory Workplace</title>
+    <style>
+                body {
+            font-family: Georgia, 'Times New Roman', Times, serif;
+            background-image: url('bg2.png');
+            background-size: cover;
+            text-align: center;
+        }
+
+        h1 {
+            color: rgb(0, 0, 0);
+            
+        }
+
+        h2 {
+            color: rgb(98, 0, 255);
+        }
+        h3 {
+            color : rgb(0, 0, 0);
+            font-size: xx-large;
+        }
+
+        .container {
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px;
+            display: inline-block;
+        }
+
+        .tomato-img {
+            max-width: 100px;
+            margin: 10px;
+        }
+        
+        .lamp {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            margin: 10px auto;
+            background-color: grey;
+            box-shadow: 0 0 5px #888888;
+            transition: background-color 0.3s ease-in-out;
+        }
+
+        .on {
+            background-color: red;
+        }
+
+        .off {
+            background-color: green;
+        }
+    </style>
+</head>
+<body>
+  <h1>IoT Based Real-time Environment Monitoring and Safety For Factory Workplace</h1>
+  <div class="container">
+    <h2>Field 1: Air Quality (CO2)</h2>
+    <div id="CO2">Loading...</div>
+</div>
+
+<div class="container">
+    <h2>Field 2: Air Quality (CO)</h2>
+    <div id="CO">Loading...</div>
+</div>
+<br>
+<div class="container">
+    <h2>Field 3: Temperature (°C)</h2>
+    <div id="temp">Loading...</div>
+</div>
+
+<div class="container">
+    <h2>Field 4:     Humidity (%)</h2>
+    <div id="hd">Loading...</div>
+</div>
+<br>
+    <div class="container">
+        <h2>Field 5: Sound Level (db)</h2>
+        <div id="sl">Loading...</div>
+        <div class="lamp" id="lampIndicator"></div>
+    </div>
+
+    <script>
+        function fetchData() {
+          fetch('https://api.thingspeak.com/channels/2304180/fields/1.json?api_key=PJQC54XJX1364MJC&results=1')
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById("CO2").innerText = data.feeds[0].field1 + " PPM";
+                });
+
+            fetch('https://api.thingspeak.com/channels/2304180/fields/2.json?api_key=PJQC54XJX1364MJC&results=1')
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById("CO").innerText = data.feeds[0].field2 + " PPM";
+                });
+
+            fetch('https://api.thingspeak.com/channels/2304180/fields/3.json?api_key=PJQC54XJX1364MJC&results=1')
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById("temp").innerText = data.feeds[0].field3 + " °C";
+                });
+
+            fetch('https://api.thingspeak.com/channels/2304180/fields/4.json?api_key=PJQC54XJX1364MJC&results=1')
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById("hd").innerText = data.feeds[0].field4 + " %";
+                });
+ 
+            fetch('https://api.thingspeak.com/channels/2304180/fields/5.json?api_key=PJQC54XJX1364MJC&results=1')
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById("sl").innerText = data.feeds[0].field5 + " db";
+                    updateLampIndicator(data.feeds[0].field5);
+                });
+        }
+
+        function updateLampIndicator(soundLevel) {
+            var lampDiv = document.getElementById("lampIndicator");
+            if (soundLevel > 0) { // You can adjust this threshold as needed
+                lampDiv.classList.remove("off");
+                lampDiv.classList.add("on");
+            } else {
+                lampDiv.classList.remove("on");
+                lampDiv.classList.add("off");
+            }
+        }
+
+        setInterval(fetchData, 15000);
+        fetchData();
+    </script>
+<br>
+
+<h3>Project by Group 12</h3>
+</body>
+</html>
