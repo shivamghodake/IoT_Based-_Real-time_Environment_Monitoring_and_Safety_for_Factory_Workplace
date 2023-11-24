@@ -112,7 +112,7 @@
             fetch('https://api.thingspeak.com/channels/2304180/fields/5.json?api_key=PJQC54XJX1364MJC&results=1')
                 .then(response => response.json())
                 .then(data => {
-                    document.getElementById("sl").innerText = data.feeds[0].field5 + " db";
+                    document.getElementById("sl").innerText = data.feeds[0].field5 + "";
                     updateLampIndicator(data.feeds[0].field5);
                 });
         }
